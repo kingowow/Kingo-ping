@@ -1,5 +1,4 @@
-{
-  "servers": [
+[
   {
     "name": "سرور گیمینگ ۱",
     "privateKey": "vPT4upQvypuyHtUqetTJGCtswpdsKhkulpoIzT0JfT4=",
@@ -289,4 +288,3 @@
     "listenPort": 1560
   }
 ]
-}
