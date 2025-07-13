@@ -1,6 +1,6 @@
 [
   {
-    "name": "سرور گیمینگ ۱",
+    "name": "سرور ۱ (اکثر هوش مصنوعی ها)",
     "privateKey": "vPT4upQvypuyHtUqetTJGCtswpdsKhkulpoIzT0JfT4=",
     "address": "25.249.76.84/24",
     "dns": ["80.81.71.159", "185.51.200.2"],
@@ -8,7 +8,7 @@
     "listenPort": 30576
   },
   {
-    "name": "سرور کاهش پینگ ۱",
+    "name": "سرور کاهش پینگ(افزایش سرعت) ۱",
     "privateKey": "eG5zKqM5vYxWnJtR9fL2hCdPqXsYvT8uWnQjM3kP5v8=",
     "address": "10.0.0.2/24",
     "dns": ["1.1.1.1", "8.8.8.8"],
@@ -16,7 +16,7 @@
     "listenPort": 51820
   },
   {
-    "name": "سرور گیمینگ ۲",
+    "name": "سرور گیمینگ(رفع تحریم و کاهش پینگ) ۲",
     "privateKey": "Dn3w3Z8ZSfXHj+09WFmwEq4q/tHNtSm3X/zUdbbKSJg=",
     "address": "31.127.109.96/24",
     "dns": [
