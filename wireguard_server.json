@@ -286,11 +286,5 @@
     ],
     "mtu": 1483,
     "listenPort": 1560
-  },
-    {
-    "name": "سرور ۱ ",
-    "privateKey": "y7ERcmicYQi/8RN9v1q+ba8yKvc0sz3IuPRfDj3Fgsw=",
-    "address": "10.214.224.86/24",
-    "dns": ["1.1.1.1", "1.0.0.1"],
-    }
+  }
 ]
