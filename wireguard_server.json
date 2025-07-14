@@ -1,6 +1,6 @@
 [
   {
-    "name": "سرور ۱ (اکثر هوش مصنوعی ها)",
+    "name": "سرور ۱ ",
     "privateKey": "vPT4upQvypuyHtUqetTJGCtswpdsKhkulpoIzT0JfT4=",
     "address": "25.249.76.84/24",
     "dns": ["80.81.71.159", "185.51.200.2"],
@@ -286,5 +286,12 @@
     ],
     "mtu": 1483,
     "listenPort": 1560
+  },
+  {
+    "name": "سرور تست ۱ ",
+    "privateKey": "xP3PXoi8wI8QOw3VziR1zUiaaNNR7Ge2jlp2EZp8EBc=",
+    "address": "83.69.75.61",
+    "AllowedIPs": "30.89.59.22"
+    "listenPort": 1662
   }
 ]
