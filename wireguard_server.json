@@ -296,6 +296,7 @@
     "listenPort": 0,
     "publicKey": "bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=",
     "allowedIPs": ["0.0.0.0/0", "::/0"],
-    "endpoint": "188.114.99.217:939"
+    "endpoint": "188.114.99.217:939",
+    "persistentKeepalive": 25
   }
 ]
