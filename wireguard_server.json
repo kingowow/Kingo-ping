@@ -286,12 +286,5 @@
     ],
     "mtu": 1483,
     "listenPort": 1560
-  },
-  {
-    "name": "سرور تست ۱ ",
-    "privateKey": "xP3PXoi8wI8QOw3VziR1zUiaaNNR7Ge2jlp2EZp8EBc=",
-    "address": "83.69.75.61",
-    "AllowedIPs": "30.89.59.22"
-    "listenPort": 1662
   }
 ]
