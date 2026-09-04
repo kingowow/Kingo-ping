@@ -1,8 +1,8 @@
 {
   "version": "1.3",
-  "versionCode": "5",
+  "versionCode": "4",
   "title": "به‌روزرسانی جدید Kingo Ping",
   "message": "نسخه جدید با بهبودهای عملکرد و قابلیت‌های جدید منتشر شد! لطفاً برنامه را به‌روزرسانی کنید.",
   "download_url": "https://kingo-ping.surge.sh/",
-  "force": true
+  "force": false
 }
