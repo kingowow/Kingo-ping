@@ -1,3 +1,4 @@
+
 name: Sync GameDB to Subfolder
 
 on:
@@ -11,36 +12,43 @@ permissions:
 jobs:
   sync-gamedb:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout your repository
         uses: actions/checkout@v4
 
-      - name: Fetch latest GameDB data (gh-pages)
+      - name: Fetch latest GameDB data
         run: |
           rm -rf temp_gamedb
-          git clone --depth 1 --single-branch --branch gh-pages https://github.com temp_gamedb
-          
-          if [ -d "temp_gamedb" ] && [ -f "temp_gamedb/stats.json" ]; then
-            rm -rf temp_gamedb/.git
-            rm -rf gamedb
-            mv temp_gamedb gamedb
-            echo "GameDB updated successfully."
-          else
-            echo "Failed to fetch GameDB or stats.json not found."
-            exit 0
+
+          git clone --depth 1 \
+            --single-branch \
+            --branch gh-pages \
+            https://github.com/LizardByte/GameDB.git \
+            temp_gamedb
+
+          if [ ! -f "temp_gamedb/stats.json" ]; then
+            echo "GameDB download failed or stats.json is missing."
+            exit 1
           fi
+
+          rm -rf temp_gamedb/.git
+          rm -rf gamedb
+          mv temp_gamedb gamedb
+
+          echo "GameDB updated successfully."
 
       - name: Commit and push changes
         run: |
-          if [ -d "gamedb" ]; then
-            git config user.name "github-actions[bot]"
-            git config user.email "github-actions[bot]@users.noreply.github.com"
-            git add gamedb
-            if ! git diff --staged --quiet; then
-              git commit -m "chore: update gamedb database"
-              git push
-            else
-              echo "No changes in GameDB."
-            fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add gamedb/
+
+          if ! git diff --staged --quiet; then
+            git commit -m "chore: update GameDB database"
+            git push origin HEAD
+          else
+            echo "No changes in GameDB."
           fi
           
