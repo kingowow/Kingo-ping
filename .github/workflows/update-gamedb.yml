@@ -2,9 +2,8 @@ name: Sync GameDB to Subfolder
 
 on:
   schedule:
-    # اجرا هر ۲۴ ساعت یک‌بار (ساعت 3:00 صبح به وقت UTC)
     - cron: '0 3 * * *'
-  workflow_dispatch: # امکان اجرای دستی از تب Actions
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -18,32 +17,32 @@ jobs:
 
       - name: Fetch latest GameDB data (gh-pages)
         run: |
-          # بررسی در دسترس بودن مخزن اصلی قبل از حذف داده‌های قبلی
-          if git ls-remote --exit-code --heads https://github.com gh-pages >/dev/null 2>&1; then
-            echo "Fetching GameDB..."
-            git clone --depth 1 --branch gh-pages https://github.com temp_gamedb
-            
-            # حذف تاریخچه گیت مخزن موقت برای جلوگیری از تداخل
+          rm -rf temp_gamedb
+          # دانلود مستقیم شاخه gh-pages بدون تاریخچه اضافی
+          git clone --depth 1 --single-branch --branch gh-pages https://github.com temp_gamedb
+          
+          # بررسی اینکه دانلود واقعاً انجام شده است یا خیر
+          if [ -d "temp_gamedb" ] && [ -f "temp_gamedb/stats.json" ]; then
             rm -rf temp_gamedb/.git
-            
-            # جایگزینی پوشه gamedb با نسخه جدید
             rm -rf gamedb
             mv temp_gamedb gamedb
+            echo "GameDB updated successfully."
           else
-            echo "LizardByte/GameDB is unreachable. Keeping existing gamedb folder."
+            echo "Failed to fetch GameDB or stats.json not found."
             exit 0
           fi
 
       - name: Commit and push changes
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add gamedb
-          
-          # کامیت و پوش فقط در صورتی که تغییری وجود داشته باشد
-          if ! git diff --staged --quiet; then
-            git commit -m "chore: update gamedb database"
-            git push
-          else
-            echo "No changes in GameDB."
+          if [ -d "gamedb" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@://github.com"
+            git add gamedb
+            if ! git diff --staged --quiet; then
+              git commit -m "chore: update gamedb database"
+              git push
+            else
+              echo "No changes in GameDB."
+            fi
           fi
+          
