@@ -1,0 +1,49 @@
+name: Sync GameDB to Subfolder
+
+on:
+  schedule:
+    # اجرا هر ۲۴ ساعت یک‌بار (ساعت 3:00 صبح به وقت UTC)
+    - cron: '0 3 * * *'
+  workflow_dispatch: # امکان اجرای دستی از تب Actions
+
+permissions:
+  contents: write
+
+jobs:
+  sync-gamedb:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout your repository
+        uses: actions/checkout@v4
+
+      - name: Fetch latest GameDB data (gh-pages)
+        run: |
+          # بررسی در دسترس بودن مخزن اصلی قبل از حذف داده‌های قبلی
+          if git ls-remote --exit-code --heads https://github.com gh-pages >/dev/null 2>&1; then
+            echo "Fetching GameDB..."
+            git clone --depth 1 --branch gh-pages https://github.com temp_gamedb
+            
+            # حذف تاریخچه گیت مخزن موقت برای جلوگیری از تداخل
+            rm -rf temp_gamedb/.git
+            
+            # جایگزینی پوشه gamedb با نسخه جدید
+            rm -rf gamedb
+            mv temp_gamedb gamedb
+          else
+            echo "LizardByte/GameDB is unreachable. Keeping existing gamedb folder."
+            exit 0
+          fi
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add gamedb
+          
+          # کامیت و پوش فقط در صورتی که تغییری وجود داشته باشد
+          if ! git diff --staged --quiet; then
+            git commit -m "chore: update gamedb database"
+            git push
+          else
+            echo "No changes in GameDB."
+          fi
