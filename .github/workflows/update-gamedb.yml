@@ -18,10 +18,8 @@ jobs:
       - name: Fetch latest GameDB data (gh-pages)
         run: |
           rm -rf temp_gamedb
-          # دانلود مستقیم شاخه gh-pages بدون تاریخچه اضافی
           git clone --depth 1 --single-branch --branch gh-pages https://github.com temp_gamedb
           
-          # بررسی اینکه دانلود واقعاً انجام شده است یا خیر
           if [ -d "temp_gamedb" ] && [ -f "temp_gamedb/stats.json" ]; then
             rm -rf temp_gamedb/.git
             rm -rf gamedb
@@ -36,7 +34,7 @@ jobs:
         run: |
           if [ -d "gamedb" ]; then
             git config user.name "github-actions[bot]"
-            git config user.email "github-actions[bot]@://github.com"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
             git add gamedb
             if ! git diff --staged --quiet; then
               git commit -m "chore: update gamedb database"
